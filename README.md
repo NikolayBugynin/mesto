@@ -31,4 +31,4 @@
 
 **Проект**
 
-[Посмотреть](https://nikolaybugynin.github.io/russian-travel/index.html)
+[Посмотреть] (https://nikolaybugynin.github.io/mesto/index.html)
