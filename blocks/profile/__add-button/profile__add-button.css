@@ -7,8 +7,8 @@
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0);
     background-position: center;
-    border: 1px solid rgba(255, 255, 255, 1);
-
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -18,8 +18,12 @@
 @media screen and (min-width: 768px) {
     .profile__add-button {
         width: 150px;
-        height: 50px;
-        position: absolute;
-        right: 0;
+        margin-left: 60px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .profile__add-button {
+        margin-left: 240px;
     }
 }

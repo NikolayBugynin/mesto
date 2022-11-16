@@ -5,5 +5,9 @@
     background-color: rgba(0, 0, 0, 0);
     background-image: url(../../../images/like-button.svg);
     background-repeat: no-repeat;
+    cursor: pointer;
+}
 
+.element__like-button:hover {
+    opacity: 0.5;
 }

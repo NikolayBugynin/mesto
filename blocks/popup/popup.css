@@ -1,20 +1,18 @@
 .popup {
-    position: absolute;
-    top: 123px;
+    position: fixed;
+    padding-top: 123px;
+    top: 0px;
     right: 0;
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, .5);
     display: none;
+    align-items: flex-start;
     justify-content: center;
-}
-
-.popup_opened {
-    display: flex;
 }
 
 @media screen and (min-width: 768px) {
     .popup {
-        top: 195px;
+        padding-top: 195px;
     }
 }

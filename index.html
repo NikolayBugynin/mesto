@@ -10,11 +10,13 @@
 
 <body class="page">
     <header class="header">
-        <img src="./images/logo-header.svg" alt="слова место" class="header__logo" />
+        <img src="./images/logo-header.svg" alt="лого место" class="header__logo" />
     </header>
     <main class="content">
         <section class="profile">
-            <img src="./images/kusto.jpg" alt="" class="profile__avatar" />
+            <img src="./images/kusto.jpg"
+                alt="Жак-Ив Кусто́ — французский исследователь Мирового океана, фотограф, режиссёр,"
+                class="profile__avatar" />
             <div class="profile__info">
                 <div class="profile__heading">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -28,69 +30,70 @@
 
         </section>
         <section class="elements">
-            <div class="element">
+            <article class="element">
                 <img src="./images/ekaterinburg.jpg" alt="Екатеринбургский театр оперы и балета"
                     class="element__image" />
                 <div class="element__subline">
                     <h2 class="element__title">Екатеринбург</h2>
                     <button type="button" aria-label="Нравится" class="element__like-button button">
                     </button>
-                </div>
+            </article>
             </div>
-            <div class="element">
+            <article class="element">
                 <img src="./images/kazan.jpg" alt="Казанский кремль" class="element__image" />
                 <div class="element__subline">
                     <h2 class="element__title">Казань</h2>
                     <button type="button" aria-label="Нравится" class="element__like-button button">
                     </button>
-                </div>
+            </article>
             </div>
-            <div class="element">
+            <article class="element">
                 <img src="./images/moscow.jpg" alt="Ночная Москва зимой" class="element__image" />
                 <div class="element__subline">
                     <h2 class="element__title">Москва</h2>
                     <button type="button" aria-label="Нравится" class="element__like-button button">
                     </button>
-                </div>
+            </article>
             </div>
-            <div class="element">
+            <article class="element">
                 <img src="./images/saint-petersburg.jpg" alt="Казанский собор" class="element__image" />
                 <div class="element__subline">
                     <h2 class="element__title">Санкт-Петербург</h2>
                     <button type="button" aria-label="Нравится" class="element__like-button button">
                     </button>
-                </div>
+            </article>
             </div>
-            <div class="element">
+            <article class="element">
                 <img src="./images/sochi.jpg" alt="Красный воздушный шар парит над горами в Красной поляне"
                     class="element__image" />
                 <div class="element__subline">
                     <h2 class="element__title">Сочи</h2>
                     <button type="button" aria-label="Нравится" class="element__like-button button">
                     </button>
-                </div>
+            </article>
             </div>
-            <div class="element">
+            <article class="element">
                 <img src="./images/vladivostok.jpg" alt="Маяк Токаревского" class="element__image" />
                 <div class="element__subline">
                     <h2 class="element__title">Владивосток</h2>
                     <button type="button" aria-label="Нравится" class="element__like-button button">
                     </button>
-                </div>
+            </article>
             </div>
         </section>
     </main>
     <footer class="footer">
-        <img src="./images/logo-footer.svg" alt="лого место" class="footer__logo" />
+        <p class="footer__copyright">&copy; 2022 Mesto Russia by Nikolay Bugynin</p>
     </footer>
     <div class="popup">
         <div class="popup__content">
             <button type="button" aria-label="Закрыть" class="popup__close-button button"></button>
             <h2 class="popup__tittle">Редактировать профиль</h2>
-            <form class="popup__form" name="user form" method="post">
-                <input type="text" class="popup__item popup__item_type-name" name="heading" placeholder="Введите имя"
+            <form class="popup__form" name="form" method="post">
+                <!-- "Есть атрибут name" извините, не понял замечания... -->
+                <input type="text" class="popup__item popup__item_type_name" name="heading" placeholder="Введите имя"
                     value="Жак-Ив Кусто">
-                <input type="text" class="popup__item popup__item_type-specification" name="subheading"
+                <input type="text" class="popup__item popup__item_type_specification" name="subheading"
                     placeholder="Введите информацию о себе" value="Исследователь океана">
                 <button type="submit" class="popup__save-button button">Сохранить</button>
             </form>

@@ -1,7 +1,7 @@
 .profile {
     display: flex;
     flex-direction: column;
-    margin: 38px auto 36px;
+    margin: 43px auto 35px;
     align-items: center;
     max-width: 282px;
     position: relative;
@@ -9,7 +9,7 @@
 
 @media screen and (min-width: 768px) {
     .profile {
-        margin: 40px auto 50px;
+        margin: 38px auto 50px;
         flex-direction: row;
         max-width: 581px;
     }
