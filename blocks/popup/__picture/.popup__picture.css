@@ -1,0 +1,21 @@
+.popup__picture-content {
+    margin: 0 auto;
+    position: relative;
+}
+
+.popup__picture-image {
+    margin: 0 auto;
+    max-width: 75vw;
+    max-height: 75vh;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.popup__picture-caption {
+    margin: 10px 0 0;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+}

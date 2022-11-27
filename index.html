@@ -27,69 +27,33 @@
             </div>
             <button type="button" aria-label="Добавить" class="profile__add-button button">
             </button>
-
+        </section>
         </section>
         <section class="elements">
-            <article class="element">
-                <img src="./images/ekaterinburg.jpg" alt="Екатеринбургский театр оперы и балета"
-                    class="element__image" />
-                <div class="element__subline">
-                    <h2 class="element__title">Екатеринбург</h2>
-                    <button type="button" aria-label="Нравится" class="element__like-button button">
-                    </button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/kazan.jpg" alt="Казанский кремль" class="element__image" />
-                <div class="element__subline">
-                    <h2 class="element__title">Казань</h2>
-                    <button type="button" aria-label="Нравится" class="element__like-button button">
-                    </button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/moscow.jpg" alt="Ночная Москва зимой" class="element__image" />
-                <div class="element__subline">
-                    <h2 class="element__title">Москва</h2>
-                    <button type="button" aria-label="Нравится" class="element__like-button button">
-                    </button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/saint-petersburg.jpg" alt="Казанский собор" class="element__image" />
-                <div class="element__subline">
-                    <h2 class="element__title">Санкт-Петербург</h2>
-                    <button type="button" aria-label="Нравится" class="element__like-button button">
-                    </button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/sochi.jpg" alt="Красный воздушный шар парит над горами в Красной поляне"
-                    class="element__image" />
-                <div class="element__subline">
-                    <h2 class="element__title">Сочи</h2>
-                    <button type="button" aria-label="Нравится" class="element__like-button button">
-                    </button>
-                </div>
-            </article>
-            <article class="element">
-                <img src="./images/vladivostok.jpg" alt="Маяк Токаревского" class="element__image" />
-                <div class="element__subline">
-                    <h2 class="element__title">Владивосток</h2>
-                    <button type="button" aria-label="Нравится" class="element__like-button button">
-                    </button>
-                </div>
-            </article>
+            <template id="element-template">
+                <article class="element">
+                    <div class="element__card">
+                        <button type="button" aria-label="Удалить" class="element__delete-button button">
+                        </button>
+                        <img src="#" alt="#" class="element__image" />
+                    </div>
+                    <div class="element__subline">
+                        <h2 class="element__title"></h2>
+                        <button type="button" aria-label="Нравится" class="element__like-button button">
+                        </button>
+                    </div>
+                </article>
+            </template>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&copy; 2022 Mesto Russia by Nikolay Bugynin</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup__profile">
         <div class="popup__content">
             <button type="button" aria-label="Закрыть" class="popup__close-button button"></button>
             <h2 class="popup__tittle">Редактировать профиль</h2>
-            <form class="popup__form" name="user form" method="post">
+            <form class="popup__form" name="edit form" method="post">
                 <input type="text" class="popup__item popup__item_type_name" name="heading" placeholder="Введите имя"
                     value="Жак-Ив Кусто">
                 <input type="text" class="popup__item popup__item_type_specification" name="subheading"
@@ -97,7 +61,26 @@
                 <button type="submit" class="popup__save-button button">Сохранить</button>
             </form>
         </div>
-
+    </div>
+    <div class="popup popup__add">
+        <div class="popup__content">
+            <button type="button" aria-label="Закрыть" class="popup__close-button button"></button>
+            <h2 class="popup__tittle">Новое место</h2>
+            <form class="popup__form" name="add form" method="post">
+                <input type="text" class="popup__item popup__item_type_title" name="heading"
+                    placeholder="Введите название" value="Название">
+                <input type="text" class="popup__item popup__item_type_link" name="subheading"
+                    placeholder="Введите ссылку на картинку" value="Ссылка на картинку">
+                <button type="submit" class="popup__add-button button">Создать</button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup__picture">
+        <figure class="popup__picture-content">
+            <button type="button" aria-label="Закрыть" class="popup__close-button  button"></button>
+            <img class="popup__picture-image">
+            <figcaption class="popup__picture-caption"></figcaption>
+        </figure>
     </div>
     <script src="./scripts/index.js" defer></script>
 </body>
