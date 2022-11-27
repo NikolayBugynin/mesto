@@ -1,7 +1,6 @@
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popupProfile = document.querySelector('.popup__profile');
-
+const popupProfile = document.querySelector('.popup-profile');
 const titleProfile = document.querySelector(".profile__title");
 const nameInput = document.querySelector('.popup__item_type_name');
 const jobInput = document.querySelector('.popup__item_type_specification');
@@ -91,9 +90,9 @@ const likecard = (evt) => {
     evt.target.classList.toggle('element__like-button_type_active');
 }
 
-const popupPic = document.querySelector('.popup__picture');
-const PicLink = document.querySelector('.popup__picture-image');
-const PicCaption = document.querySelector('.popup__picture-caption');
+const popupPic = document.querySelector('.popup-picture');
+const PicLink = document.querySelector('.popup-picture__image');
+const PicCaption = document.querySelector('.popup-picture__caption');
 
 function renderCard({ name, link }) {
     const placeElement = placeTemplate.querySelector('.element').cloneNode(true);
@@ -121,7 +120,7 @@ function renderCard({ name, link }) {
 }
 render();
 
-const popupAdd = document.querySelector('.popup__add');
+const popupAdd = document.querySelector('.popup-add');
 const titleImgInput = popupAdd.querySelector('.popup__item_type_title');
 const linkInput = popupAdd.querySelector('.popup__item_type_link');
 const addForm = popupAdd.querySelector('.popup__form');
