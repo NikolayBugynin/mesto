@@ -1,0 +1,8 @@
+.popup-picture {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.95);
+    color: #000000;
+}

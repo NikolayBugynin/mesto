@@ -1,4 +1,6 @@
 .popup-picture__content {
     margin: 0 auto;
+    max-width: 75vw;
+    max-height: 100%;
     position: relative;
 }
