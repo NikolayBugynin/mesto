@@ -11,11 +11,11 @@ const popupPic = document.querySelector('.popup-picture');
 const picLink = popupPic.querySelector('.popup-picture__image');
 const picCaption = popupPic.querySelector('.popup-picture__caption');
 const placesContainer = document.querySelector('.elements');
-const placeTemplate = document.querySelector('#element-template').content;
 const titleImgInput = popupAdd.querySelector('.popup__item_type_title');
 const linkInput = popupAdd.querySelector('.popup__item_type_link');
 const profileForm = popupProfile.querySelector('.popup__form');
 const addForm = popupAdd.querySelector('.popup__form');
+const placeTemplate = document.querySelector('#element-template').content;
 
 /*const profileForm = document.forms["profile-form"];
 const addForm = document.forms["add-form"]; не работает*/
