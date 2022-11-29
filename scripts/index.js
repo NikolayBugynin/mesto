@@ -42,7 +42,7 @@ function openPopupProfile() {
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     titleProfile.textContent = nameInput.value;
-    jobInput.textContent = jobInput.value;
+    specificationProfile.textContent = jobInput.value;
     closePopup(popupProfile);
 }
 profileForm.addEventListener('submit', handleProfileFormSubmit);
