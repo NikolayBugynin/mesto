@@ -1,34 +1,52 @@
 const editButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup-profile');
 const titleProfile = document.querySelector(".profile__title");
-const nameInput = document.querySelector('.popup__item_type_name');
-const jobInput = document.querySelector('.popup__item_type_specification');
+const nameInput = document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_specification');
 const specificationProfile = document.querySelector('.profile__specification');
-const closeButtons = document.querySelectorAll('.popup__close-button');
+// const closeButtons = document.querySelectorAll('.popup__close-button');
 const popupAdd = document.querySelector('.popup-add');
 const addButton = document.querySelector('.profile__add-button');
 const popupPic = document.querySelector('.popup-picture');
 const picLink = popupPic.querySelector('.popup-picture__image');
 const picCaption = popupPic.querySelector('.popup-picture__caption');
 const placesContainer = document.querySelector('.elements');
-const titleImgInput = popupAdd.querySelector('.popup__item_type_title');
-const linkInput = popupAdd.querySelector('.popup__item_type_link');
-const profileForm = popupProfile.querySelector('.popup__form');
-const addForm = popupAdd.querySelector('.popup__form');
+const titleImgInput = popupAdd.querySelector('.popup__input_type_title');
+const linkInput = popupAdd.querySelector('.popup__input_type_link');
 const placeTemplate = document.querySelector('#element-template').content;
-
-/*const profileForm = document.forms["profile-form"];
-const addForm = document.forms["add-form"]; не работает*/
+const profileForm = document.forms["profile-form"];
+const addForm = document.forms["add-form"];
+const popups = document.querySelectorAll('.popup');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closePopupByEsc);
 }
 
-closeButtons.forEach((closeButton) => closeButton.addEventListener('click', () => closePopup(closeButton.closest('.popup'))));
+
+function closePopupByEsc(evt) {
+    const isOverlay = document.querySelector('.popup_opened');
+    if (evt.key === "Escape") {
+        closePopup(isOverlay);
+    }
+};
+
+popups.forEach((popup) => {
+    popup.addEventListener('click', function (evt) {
+        if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')) {
+            closePopup(popup);
+        }
+    });
+});
+
+
+// closeButtons.forEach((closeButton) => closeButton.addEventListener('click', () => closePopup(closeButton.closest('.popup'))));
+
 
 addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', () => openPopup(popupProfile));
@@ -105,8 +123,6 @@ function createCard(item) {
 
     imgButton.addEventListener('click', () => openPic(item));
 
-    /* imgButton.addEventListener('click', openPic(item); - не работает(((*/
-
     const likeButton = placeElement.querySelector('.element__like-button');
     likeButton.addEventListener('click', toggleLike);
 
@@ -133,3 +149,18 @@ function handleAddFormSubmit(evt) {
     closePopup(popupAdd);
 }
 addForm.addEventListener('submit', handleAddFormSubmit);
+
+
+// document.addEventListener('click', (e) => {
+//     const withinBoundaries = e.composedPath().includes(div);
+
+//     if (!withinBoundaries) {
+//         div.style.display = 'none'; // скрываем элемент т к клик был за его пределами
+//     }
+// })
+
+// document.addEventListener('keydown', function (e) {
+//     if (e.keyCode == 27) { // код клавиши Escape, но можно использовать e.key
+//         div.style.display = 'none';
+//     }
+// });

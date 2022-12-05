@@ -1,0 +1,8 @@
+.popup__button_disable {
+    border: 1px solid #000000;
+    border-radius: 2px;
+    background-color: #fff;
+    color: #000;
+    cursor: default;
+    opacity: 0.2;
+}
