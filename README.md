@@ -32,9 +32,3 @@
 **Проект**
 
 * [Посмотреть](https://nikolaybugynin.github.io/mesto/index.html)
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> ebfc3300333cc16c5d17e796789db79f8aaef3b6
