@@ -17,7 +17,6 @@ const showInputError = (formElement, inputElement, errorMessage, key) => {
 const hideInputError = (formElement, inputElement, key) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(key.inputErrorClass);
-    errorElement.classList.remove(key.errorClass);
     errorElement.textContent = '';
 };
 
@@ -37,12 +36,27 @@ function hasInvalidInput(inputList) {
 
 function toggleButtonState(inputList, buttonElement, key) {
     if (hasInvalidInput(inputList)) {
-        buttonElement.classList.add(key.inactiveButtonClass);
-        buttonElement.disabled = true;
+        disabledButton(buttonElement, key.inactiveButtonClass);
     } else {
-        buttonElement.classList.remove(key.inactiveButtonClass);
-        buttonElement.disabled = false;
+        enabledButton(buttonElement, key.inactiveButtonClass);
     }
+};
+
+function resetErrorForm(popupElement) {
+    const inputList = Array.from(popupElement.querySelectorAll('.popup__input'));
+    inputList.forEach((inputElement) => {
+        hideInputError(popupElement, inputElement, { inputErrorClass: 'popup__input-error' });
+    });
+};
+
+function disabledButton(buttonElement, inactiveButtonClass) {
+    buttonElement.disabled = true;
+    buttonElement.classList.add(inactiveButtonClass);
+};
+
+function enabledButton(buttonElement, inactiveButtonClass) {
+    buttonElement.disabled = false;
+    buttonElement.classList.remove(inactiveButtonClass);
 };
 
 const setEventListeners = (formElement, key) => {
@@ -66,5 +80,3 @@ const enableValidation = (key) => {
 };
 
 enableValidation(keys);
-
-

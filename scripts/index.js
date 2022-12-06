@@ -17,27 +17,31 @@ const placeTemplate = document.querySelector('#element-template').content;
 const profileForm = document.forms["profile-form"];
 const addForm = document.forms["add-form"];
 const popups = document.querySelectorAll('.popup');
+const createButton = popupAdd.querySelector('.popup__button');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closePopupByEsc);
 }
 
+// function openPopupProfile() {
+//     openPopup(popupProfile);
+// };
+
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupByEsc);
 }
 
-
 function closePopupByEsc(evt) {
-    const isOverlay = document.querySelector('.popup_opened');
     if (evt.key === "Escape") {
+        const isOverlay = document.querySelector('.popup_opened');
         closePopup(isOverlay);
     }
 };
 
 popups.forEach((popup) => {
-    popup.addEventListener('click', function (evt) {
+    popup.addEventListener('mousedown', function (evt) {
         if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')) {
             closePopup(popup);
         }
@@ -47,15 +51,28 @@ popups.forEach((popup) => {
 
 // closeButtons.forEach((closeButton) => closeButton.addEventListener('click', () => closePopup(closeButton.closest('.popup'))));
 
+// addButton.addEventListener('click', () => openPopup(popupAdd));
+// editButton.addEventListener('click', () => openPopup(popupProfile));
 
-addButton.addEventListener('click', () => openPopup(popupAdd));
-editButton.addEventListener('click', () => openPopup(popupProfile));
-
-function openPopupProfile() {
-    openPopup(popupProfile);
+function fillPopupProfile() {
     nameInput.value = titleProfile.textContent;
     jobInput.value = specificationProfile.textContent;
 };
+
+addButton.addEventListener('click', () => {
+    openPopup(popupAdd);
+    resetErrorForm(popupAdd);
+    disabledButton(createButton, 'popup__button_disable');
+
+});
+
+editButton.addEventListener('click', () => {
+    openPopup(popupProfile);
+    disabledButton(createButton, 'popup__button_disable');
+    resetErrorForm(popupProfile);
+    fillPopupProfile();
+});
+
 
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
@@ -150,17 +167,3 @@ function handleAddFormSubmit(evt) {
 }
 addForm.addEventListener('submit', handleAddFormSubmit);
 
-
-// document.addEventListener('click', (e) => {
-//     const withinBoundaries = e.composedPath().includes(div);
-
-//     if (!withinBoundaries) {
-//         div.style.display = 'none'; // скрываем элемент т к клик был за его пределами
-//     }
-// })
-
-// document.addEventListener('keydown', function (e) {
-//     if (e.keyCode == 27) { // код клавиши Escape, но можно использовать e.key
-//         div.style.display = 'none';
-//     }
-// });
