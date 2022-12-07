@@ -61,15 +61,12 @@ function fillPopupProfile() {
 
 addButton.addEventListener('click', () => {
     openPopup(popupAdd);
-    resetErrorForm(popupAdd);
     disabledButton(createButton, 'popup__button_disable');
-
 });
 
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
     disabledButton(createButton, 'popup__button_disable');
-    resetErrorForm(popupProfile);
     fillPopupProfile();
 });
 

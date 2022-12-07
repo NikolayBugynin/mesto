@@ -42,13 +42,6 @@ function toggleButtonState(inputList, buttonElement, key) {
     }
 };
 
-function resetErrorForm(popupElement) {
-    const inputList = Array.from(popupElement.querySelectorAll('.popup__input'));
-    inputList.forEach((inputElement) => {
-        hideInputError(popupElement, inputElement, { inputErrorClass: 'popup__input-error' });
-    });
-};
-
 function disabledButton(buttonElement, inactiveButtonClass) {
     buttonElement.disabled = true;
     buttonElement.classList.add(inactiveButtonClass);
