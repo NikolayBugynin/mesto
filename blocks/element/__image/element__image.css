@@ -1,4 +1,7 @@
 .element__image {
+    /* блочный диплей и черный фон */
+    display: block;
+    background-color: black;
     width: 282px;
     min-height: 282px;
     height: 282px;

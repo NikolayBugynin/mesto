@@ -1,5 +1,3 @@
-
-
 export class FormValidator {
     constructor(keys, form) {
         this._form = form;
@@ -12,6 +10,7 @@ export class FormValidator {
 
         this._inputSelector = keys.inputSelector;
         this._submitButtonSelector = keys.submitButtonSelector;
+
     }
 
     _hasInvalidInput() {
@@ -36,7 +35,6 @@ export class FormValidator {
         } else {
             this._hideInputError(inputElement);
         }
-        this._toggleButtonState();
     }
     _showInputError(inputElement) {
         const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
@@ -50,14 +48,15 @@ export class FormValidator {
         errorElement.textContent = '';
     }
     _setEventListeners() {
-        const validator = this;
         this._inputList.forEach(inputElement => {
-            inputElement.addEventListener('input', function () {
-                validator._checkInputValidity(inputElement);
+            inputElement.addEventListener('input', () => {
+                this._checkInputValidity(inputElement);
+                this._toggleButtonState(); //перенес метод туда где вызывпется _checkInputValidity(inputElement);
             });
         });
     }
     enableValidation() {
         this._setEventListeners();
+        this._toggleButtonState();
     }
 }

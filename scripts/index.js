@@ -21,6 +21,8 @@ const profileForm = document.forms["profile-form"];
 const addForm = document.forms["add-form"];
 const popups = document.querySelectorAll('.popup');
 const createButton = popupAdd.querySelector('.popup__button');
+const formSelector = '.popup__form';
+
 
 export function openPopup(popup) {
     popup.classList.add('popup_opened');
@@ -38,8 +40,8 @@ function closePopup(popup) {
 
 function closePopupByEsc(evt) {
     if (evt.key === "Escape") {
-        const isOverlay = document.querySelector('.popup_opened');
-        closePopup(isOverlay);
+        const popup = document.querySelector('.popup_opened');
+        closePopup(popup);
     }
 };
 
@@ -64,16 +66,26 @@ function fillPopupProfile() {
 
 addButton.addEventListener('click', () => {
     openPopup(popupAdd);
-    disabledButton(createButton, 'popup__button_disable');
+    // disabledButton(createButton, 'popup__button_disable');
 });
 
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
-    disabledButton(createButton, 'popup__button_disable');
+    // disabledButton(createButton, 'popup__button_disable');
     fillPopupProfile();
 });
 
+// function disabledButton(buttonElement, inactiveButtonClass) {
+//     buttonElement.disabled = true;
+//     buttonElement.classList.add(inactiveButtonClass);
+// };
 
+// function enabledButton(buttonElement, inactiveButtonClass) {
+//     buttonElement.disabled = false;
+//     buttonElement.classList.remove(inactiveButtonClass);
+// };
+
+// обработка отправки формы профиля
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     titleProfile.textContent = nameInput.value;
@@ -115,6 +127,8 @@ const initialCards = [
     }
 ];
 
+
+
 const toggleLike = (evt) => {
     evt.target.classList.toggle('element__like-button_type_active');
 };
@@ -123,36 +137,35 @@ const deleteCard = (evt) => {
     evt.target.closest('.element').remove();
 };
 
-export function openPic(item) {
+function openPic(item) {
     openPopup(popupPic);
     picLink.alt = item.link;
     picLink.src = item.link;
     picCaption.textContent = item.name;
 };
 
-function createCard(item) {
-    const placeElement = placeTemplate.querySelector('.element').cloneNode(true);
+// function createCard(item) {
+//     const placeElement = placeTemplate.querySelector('.element').cloneNode(true);
 
-    const imgButton = placeElement.querySelector('.element__image');
-    placeElement.querySelector('.element__title').textContent = item.name;
-    imgButton.src = item.link;
-    imgButton.alt = item.link;
+//     const imgButton = placeElement.querySelector('.element__image');
+//     placeElement.querySelector('.element__title').textContent = item.name;
+//     imgButton.src = item.link;
+//     imgButton.alt = item.link;
 
-    imgButton.addEventListener('click', () => openPic(item));
+//     imgButton.addEventListener('click', () => openPic(item));
 
-    const likeButton = placeElement.querySelector('.element__like-button');
-    likeButton.addEventListener('click', toggleLike);
+//     const likeButton = placeElement.querySelector('.element__like-button');
+//     likeButton.addEventListener('click', toggleLike);
 
-    const deleteButton = placeElement.querySelector('.element__delete-button');
-    deleteButton.addEventListener('click', deleteCard);
+//     const deleteButton = placeElement.querySelector('.element__delete-button');
+//     deleteButton.addEventListener('click', deleteCard);
 
-    return placeElement;
-}
+//     return placeElement;
+// }
 
 
 initialCards.forEach((card) => {
-    const newCard = new Card(card, '#element-template')
-    console.log(newCard)
+    const newCard = createCard(card.name, card.link)
     placesContainer.append(newCard.render())
 
     // newCard.render()
@@ -160,18 +173,18 @@ initialCards.forEach((card) => {
 
 
 
-function renderCard(item) {
-    // const placeElement = createCard(item)
-    // placesContainer.prepend(placeElement);
-    // создаем экземпляр карточки
-}
-// render();
+// function renderCard(item) {
+//     // const placeElement = createCard(item)
+//     // placesContainer.prepend(placeElement);
+//     // создаем экземпляр карточки
+// }
+// // render();
 
 function handleAddFormSubmit(evt) {
     evt.preventDefault();
     // renderCard({ name: titleImgInput.value, link: linkInput.value })
     // создаем экземпляр карточки
-    const newCard = new Card({ name: titleImgInput.value, link: linkInput.value }, '#element-template')
+    const newCard = createCard(titleImgInput.value, linkInput.value)
 
     //вставляем карточку в разметку
     placesContainer.prepend(newCard.render())
@@ -181,16 +194,28 @@ function handleAddFormSubmit(evt) {
 }
 addForm.addEventListener('submit', handleAddFormSubmit);
 
-const keys = {
+function createCard(name, link) {
+    // создаем экземпляр карточки
+    const newCard = new Card({ name: name, link: link }, '#element-template', openPic)
+
+    return newCard
+
+}
+
+const validationConfig = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disable',
     errorClass: 'popup__input-error',
     inputErrorClass: 'popup__input-error_active',
 };
-const formSelector = '.popup__form';
+
+
+//ищем все формы на странице и включаем для них проверку
 const forms = Array.from(document.querySelectorAll(formSelector));
 forms.forEach((form) => {
-    const validator = new FormValidator(keys, form);
+    const validator = new FormValidator(validationConfig, form);
     validator.enableValidation();
 });
+
+

@@ -1,10 +1,16 @@
-import { popupPic, picLink, picCaption, openPopup } from "./index.js"
+//import { popupPic, picLink, picCaption, openPopup } from "./index.js"
 
 export class Card {
-    constructor({ name, link }, templateSelector) {
+    constructor({ name, link }, templateSelector, openPic) {
+        this._handleCardClick = openPic
         this._name = name
         this._link = link
         this._templateSelector = templateSelector
+        this._card = this._getTemplate()
+        this._elementImage = this._card.querySelector('.element__image')
+        this._likeButton = this._card.querySelector('.element__like-button')
+        this._title = this._card.querySelector('.element__title')
+        this._deleteButton = this._card.querySelector('.element__delete-button')
     }
 
     _getTemplate() {
@@ -18,48 +24,38 @@ export class Card {
     }
 
     _makeListeners() {
-        this.card.querySelector('.element__delete-button').addEventListener('click', () => {
+        this._deleteButton.addEventListener('click', () => {
             this._remove()
         })
 
-        this.card.querySelector('.element__like-button').addEventListener('click', () => {
+        this._likeButton.addEventListener('click', () => {
             this._like()
         })
 
-        this.card.querySelector('.element__image').addEventListener('click', () => {
-            this._preview()
+        this._elementImage.addEventListener('click', () => {
+            this._handleCardClick({ name: this._name, link: this._link })
         })
 
     }
 
     _remove() {
-        this.card.remove()
+        this._card.remove()
     }
 
     _like() {
 
-        this.card.querySelector('.element__like-button').classList.toggle('element__like-button_type_active');
-    }
-
-    _preview() {
-        openPopup(popupPic)
-        picLink.alt = this._link;
-        picLink.src = this._link;
-        picCaption.textContent = this._name;
+        this._likeButton.classList.toggle('element__like-button_type_active');
     }
 
     render() {
-        this.card = this._getTemplate()
 
-        console.log(this.card)
-        const elementImage = this.card.querySelector('.element__image')
-        this.card.querySelector('.element__title').textContent = this._name
-        elementImage.src = this._link
-        elementImage.alt = this._name
+        this._title.textContent = this._name
+        this._elementImage.src = this._link
+        this._elementImage.alt = this._name
         this._makeListeners()
 
 
-        return this.card
+        return this._card
     }
 }
 
