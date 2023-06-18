@@ -67,11 +67,13 @@ function fillPopupProfile() {
 addButton.addEventListener('click', () => {
     openPopup(popupAdd);
     // disabledButton(createButton, 'popup__button_disable');
+    validators[addForm.getAttribute('name')].disableSubmitButton();
 });
 
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
     // disabledButton(createButton, 'popup__button_disable');
+    validators[profileForm.getAttribute('name')].disableSubmitButton();
     fillPopupProfile();
 });
 
@@ -212,10 +214,10 @@ const validationConfig = {
 
 
 //ищем все формы на странице и включаем для них проверку
+const validators = {};
 const forms = Array.from(document.querySelectorAll(formSelector));
 forms.forEach((form) => {
     const validator = new FormValidator(validationConfig, form);
-    validator.enableValidation();
+    validator.enableValidation()
+    validators[form.getAttribute('name')] = validator;
 });
-
-
