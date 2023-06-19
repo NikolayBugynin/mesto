@@ -1,5 +1,6 @@
 import { Card } from "./Card.js"
 import { FormValidator } from "./FormValidator.js"
+import * as constants from './constants.js';
 
 export function openPopup(popup) {
     popup.classList.add('popup_opened');
@@ -18,7 +19,7 @@ function closePopupByEsc(evt) {
     }
 };
 
-popups.forEach((popup) => {
+constants.popups.forEach((popup) => {
     popup.addEventListener('mousedown', function (evt) {
         if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')) {
             closePopup(popup);
@@ -33,20 +34,20 @@ popups.forEach((popup) => {
 // editButton.addEventListener('click', () => openPopup(popupProfile));
 
 function fillPopupProfile() {
-    nameInput.value = titleProfile.textContent;
-    jobInput.value = specificationProfile.textContent;
+    constants.nameInput.value = constants.titleProfile.textContent;
+    constants.jobInput.value = constants.specificationProfile.textContent;
 };
 
-addButton.addEventListener('click', () => {
-    openPopup(popupAdd);
+constants.addButton.addEventListener('click', () => {
+    openPopup(constants.popupAdd);
     // disabledButton(createButton, 'popup__button_disable');
-    validators[addForm.getAttribute('name')].disableSubmitButton();
+    constants.validators[constants.addForm.getAttribute('name')].disableSubmitButton();
 });
 
-editButton.addEventListener('click', () => {
-    openPopup(popupProfile);
+constants.editButton.addEventListener('click', () => {
+    openPopup(constants.popupProfile);
     // disabledButton(createButton, 'popup__button_disable');
-    validators[profileForm.getAttribute('name')].disableSubmitButton();
+    constants.validators[constants.profileForm.getAttribute('name')].disableSubmitButton();
     fillPopupProfile();
 });
 
@@ -63,16 +64,11 @@ editButton.addEventListener('click', () => {
 // обработка отправки формы профиля
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
-    titleProfile.textContent = nameInput.value;
-    specificationProfile.textContent = jobInput.value;
-    closePopup(popupProfile);
+    constants.titleProfile.textContent = constants.nameInput.value;
+    constants.specificationProfile.textContent = constants.jobInput.value;
+    closePopup(constants.popupProfile);
 }
-profileForm.addEventListener('submit', handleProfileFormSubmit);
-
-
-
-
-
+constants.profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 const toggleLike = (evt) => {
     evt.target.classList.toggle('element__like-button_type_active');
@@ -83,30 +79,30 @@ const deleteCard = (evt) => {
 };
 
 function openPic(item) {
-    openPopup(popupPic);
-    picLink.alt = item.link;
-    picLink.src = item.link;
-    picCaption.textContent = item.name;
+    openPopup(constants.popupPic);
+    constants.picLink.alt = item.link;
+    constants.picLink.src = item.link;
+    constants.picCaption.textContent = item.name;
 };
 
-initialCards.forEach((card) => {
+constants.initialCards.forEach((card) => {
     const newCard = createCard(card.name, card.link)
-    placesContainer.append(newCard.render())
+    constants.placesContainer.append(newCard.render())
 });
 
 function handleAddFormSubmit(evt) {
     evt.preventDefault();
     // renderCard({ name: titleImgInput.value, link: linkInput.value })
     // создаем экземпляр карточки
-    const newCard = createCard(titleImgInput.value, linkInput.value)
+    const newCard = createCard(constants.titleImgInput.value, constants.linkInput.value)
 
     //вставляем карточку в разметку
-    placesContainer.prepend(newCard.render())
+    constants.placesContainer.prepend(newCard.render())
 
     evt.target.reset();
-    closePopup(popupAdd);
+    closePopup(constants.popupAdd);
 }
-addForm.addEventListener('submit', handleAddFormSubmit);
+constants.addForm.addEventListener('submit', handleAddFormSubmit);
 
 function createCard(name, link) {
     // создаем экземпляр карточки
@@ -124,8 +120,8 @@ const validationConfig = {
 };
 
 //ищем все формы на странице и включаем для них проверку
-forms.forEach((form) => {
+constants.forms.forEach((form) => {
     const validator = new FormValidator(validationConfig, form);
     validator.enableValidation()
-    validators[form.getAttribute('name')] = validator;
+    constants.validators[form.getAttribute('name')] = validator;
 });
