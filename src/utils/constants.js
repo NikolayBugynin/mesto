@@ -1,25 +1,52 @@
 export const editButton = document.querySelector('.profile__edit-button');
-export const popupProfile = document.querySelector('.popup-profile');
+
 export const titleProfile = document.querySelector(".profile__title");
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const jobInput = document.querySelector('.popup__input_type_specification');
 export const specificationProfile = document.querySelector('.profile__specification');
-export const popupAdd = document.querySelector('.popup-add');
 export const addButton = document.querySelector('.profile__add-button');
-export const popupPic = document.querySelector('.popup-picture');
-export const picLink = popupPic.querySelector('.popup-picture__image');
-export const picCaption = popupPic.querySelector('.popup-picture__caption');
-export const placesContainer = document.querySelector('.elements');
-export const titleImgInput = popupAdd.querySelector('.popup__input_type_title');
-export const linkInput = popupAdd.querySelector('.popup__input_type_link');
+
+// export const picLink = popupPic.querySelector('.popup-picture__image');
+// export const picCaption = popupPic.querySelector('.popup-picture__caption');
+
+// export const titleImgInput = popupAdd.querySelector('.popup__input_type_title');
+// export const linkInput = popupAdd.querySelector('.popup__input_type_link');
 export const placeTemplate = document.querySelector('#element-template').content;
 export const profileForm = document.forms["profile-form"];
 export const addForm = document.forms["add-form"];
 export const popups = document.querySelectorAll('.popup');
-export const createButton = popupAdd.querySelector('.popup__button');
+// export const createButton = popupAdd.querySelector('.popup__button');
+
 export const formSelector = '.popup__form';
+export const popupAdd = '.popup-add';
+export const popupPic = '.popup-picture';
+export const placesContainer = '.elements';
+export const popupProfile = '.popup-profile';
+export const templateSelector = '.template';
+
+export const profileSelectors = {
+    name: '.profile__title',
+    job: '.profile__specification'
+}
+
+
+
 export const validators = {};
 export const forms = Array.from(document.querySelectorAll(formSelector));
+
+//selectors
+
+
+
+
+export const validationConfig = {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disable',
+    errorClass: 'popup__input-error',
+    inputErrorClass: 'popup__input-error_active',
+};
+
 
 export const initialCards = [
     {

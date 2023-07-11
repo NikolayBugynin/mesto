@@ -1,8 +1,6 @@
-//import { popupPic, picLink, picCaption, openPopup } from "./index.js"
-
-export class Card {
-    constructor({ name, link }, templateSelector, openPic) {
-        this._handleCardClick = openPic
+export default class Card {
+    constructor({ name, link }, templateSelector, handleCardClick) {
+        this._handleCardClick = handleCardClick
         this._name = name
         this._link = link
         this._templateSelector = templateSelector
