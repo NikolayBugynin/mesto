@@ -48,21 +48,17 @@ profileValidation.enableValidation();
 placeValidation.enableValidation();
 
 constants.addButton.addEventListener('click', () => {
-    profileValidation._toggleButtonState();
-    profileValidation.disableSubmitButton();
+    placeValidation.disableSubmitButton();
     placePopup.open();
 });
 
 constants.editButton.addEventListener('click', () => {
-    placeValidation._toggleButtonState();
-    placeValidation.disableSubmitButton();
     const item = userInfo.getUserInfo();
     profilePopup.setInputsValue({ username: item.name, specification: item.job });
     profilePopup.open();
-
 });
 
-//ищем все формы на странице и включаем для них проверку
+// ищем все формы на странице и включаем для них проверку
 constants.forms.forEach((form) => {
     const validator = new FormValidator(constants.validationConfig, form);
     validator.enableValidation()

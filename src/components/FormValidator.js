@@ -10,7 +10,6 @@ export default class FormValidator {
 
         this._inputSelector = keys.inputSelector;
         this._submitButtonSelector = keys.submitButtonSelector;
-
     }
 
     _hasInvalidInput() {
@@ -67,4 +66,5 @@ export default class FormValidator {
         this._setEventListeners();
         this._toggleButtonState();
     }
+
 }
