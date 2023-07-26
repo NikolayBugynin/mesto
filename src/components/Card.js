@@ -1,9 +1,11 @@
 export default class Card {
-    constructor({ name, link }, templateSelector, handleCardClick) {
+    constructor({ name, link }, templateSelector, handleCardClick, handleConfirmPopup) {
+
         this._handleCardClick = handleCardClick
         this._name = name
         this._link = link
         this._templateSelector = templateSelector
+        this._handleConfirmPopup = handleConfirmPopup
         this._card = this._getTemplate()
         this._elementImage = this._card.querySelector('.element__image')
         this._likeButton = this._card.querySelector('.element__like-button')
@@ -22,10 +24,6 @@ export default class Card {
     }
 
     _makeListeners() {
-        this._deleteButton.addEventListener('click', () => {
-            this._remove()
-        })
-
         this._likeButton.addEventListener('click', () => {
             this._like()
         })
@@ -34,10 +32,14 @@ export default class Card {
             this._handleCardClick({ name: this._name, link: this._link })
         })
 
+        this._deleteButton.addEventListener('click', () => {
+            this._handleConfirmPopup(this);
+        });
     }
 
-    _remove() {
-        this._card.remove()
+    removeCard() {
+        this._card.remove();
+        this._card = null;
     }
 
     _like() {

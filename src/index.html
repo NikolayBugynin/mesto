@@ -5,25 +5,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
+    <link rel="stylesheet" href="./pages/index.css" />
 </head>
 
 <body class="page">
     <header class="header">
-        <img src="<%=require('./images/logo-header.svg')%>" alt="лого место" class="header__logo">
+        <img src="./images/logo-header.svg" alt="лого место" class="header__logo">
     </header>
     <main class="content">
         <section class="profile">
-            <img src="<%=require('./images/kusto.jpg')%>"
-                alt="Жак-Ив Кусто́ — французский исследователь Мирового океана, фотограф, режиссёр,"
-                class="profile__avatar">
+
+            <button type="button" aria-label="Редактировать" class="profile__edit-avatar_button button">
+                <img src="#" alt="Жак-Ив Кусто́ — французский исследователь Мирового океана, фотограф, режиссёр,"
+                    class="profile__avatar">
+            </button>
+
             <div class="profile__info">
                 <div class="profile__heading">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <h1 class="profile__title"></h1>
                     <button type="button" aria-label="Редактировать" class="profile__edit-button button">
                     </button>
                 </div>
-                <p class="profile__specification">Исследователь океана</p>
+                <p class="profile__specification"></p>
             </div>
             <button type="button" aria-label="Добавить" class="profile__add-button button">
             </button>
@@ -61,10 +64,10 @@
                     minlength="2" maxlength="200" required>
                 <span class='popup__input-error specification-input-error'></span>
                 <button disabled type="submit" class="popup__button button">Сохранить</button>
-
             </form>
         </div>
     </div>
+
     <div class="popup popup-add">
         <div class="popup__content">
             <button type="button" aria-label="Закрыть" class="popup__close-button button"></button>
@@ -80,6 +83,31 @@
             </form>
         </div>
     </div>
+    <!-- Обновление аватара пользователя -->
+    <div class="popup popup-avatar">
+        <div class="popup__content">
+            <button type="button" aria-label="Закрыть" class="popup__close-button button"></button>
+            <h2 class="popup__tittle">Обновить аватар</h2>
+            <form class="popup__form" name="popup-newavatar" method="post" novalidate>
+                <input type="url" name="avatar" class="popup__input popup__input_type_link" id="avatar-input"
+                    placeholder="Введите ссылку на картинку" required>
+                <span class='popup__input-error avatar-input-error'></span>
+                <button disabled type="submit" class="popup__button button">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Попап удаления карточки -->
+    <div class="popup popup-delete-card">
+        <div class="popup__content">
+            <button type="button" aria-label="Закрыть" class="popup__close-button button"></button>
+            <h2 class="popup__tittle">Вы уверены?</h2>
+            <form class="popup__form" name="popup-deletecard" method="post" novalidate>
+                <button disabled type="submit" class="popup__button button">Да</button>
+            </form>
+        </div>
+    </div>
+
     <div class="popup popup-picture">
         <figure class="popup-picture__content">
             <button type="button" aria-label="Закрыть" class="popup__close-button  button"></button>
@@ -87,7 +115,7 @@
             <figcaption class="popup-picture__caption"></figcaption>
         </figure>
     </div>
-    <!-- <script type='module' src="./pages/index.js"></script> -->
+    <script type='module' src="./pages/index.js"></script>
 </body>
 
 </html>

@@ -9,11 +9,18 @@ export default class Section {
         this._container.prepend(element);
     }
 
-    renderItems() {
+    // renderItems() {
+    //     this._renderedItems.forEach(item => {
+    //         this._renderer(item);
+    //     });
+    // }
 
-        this._renderedItems.forEach(item => {
-            this._renderer(item);
+    renderItems(dataCard) {
+        dataCard.forEach((element) => {
+            this._renderer(element);
         });
     }
+
+
 
 }
