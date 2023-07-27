@@ -1,32 +1,23 @@
+import { request } from '../utils/utils.js';
+
 export default class Api {
-    constructor(options) {
-        this._url = options.baseUrl
-        this._headers = options.headers
-        this._authorization = options.headers.authorization
-    }
+  constructor({ baseUrl, headers }) {
+    this._url = baseUrl;
+    this._get = { headers: headers, method: 'GET' };
+    this._patch = function (body) {
+      return { headers: headers, method: 'PATCH', body: body };
+    };
+  }
 
-    _checkResponse(res) { return res.ok ? res.json() : Promise.reject }
+  getInfo() {
+    return request(`${this._url}/users/me`, this._get);
+  }
 
+  getCards() {
+    return request(`${this._url}/cards`, this._get);
+  }
 
-
-    getInfo() {
-        return fetch(`${this._url}/users/me`, {
-            headers: {
-                authorization: this._authorization
-            }
-        })
-            .then(this._checkResponse)
-    }
-
-    getCards() {
-        return fetch(`${this._url}/cards`, {
-            headers: {
-                authorization: this._authorization
-            }
-        })
-            .then(this._checkResponse)
-
-    }
-
-
+  editProfle(body) {
+    return request(`${this._url}/users/me`, this._patch(body));
+  }
 }

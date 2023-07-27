@@ -1,7 +1,9 @@
 export default class Card {
-    constructor({ name, link }, templateSelector, handleCardClick, handleConfirmPopup) {
+    constructor({ name, link, myid, ownerId }, templateSelector, handleCardClick, handleConfirmPopup) {
 
         this._handleCardClick = handleCardClick
+        // this._myid = myid
+        // this._ownerId = ownerId
         this._name = name
         this._link = link
         this._templateSelector = templateSelector
@@ -11,7 +13,15 @@ export default class Card {
         this._likeButton = this._card.querySelector('.element__like-button')
         this._title = this._card.querySelector('.element__title')
         this._deleteButton = this._card.querySelector('.element__delete-button')
+
     }
+
+
+    // _changeVisibleForDeleteButton() {
+    //     this._myId === this._ownerId
+    //         ? (this._deleteButton.style.display = "block")
+    //         : (this._deleteButtont.style.display = "none");
+    // }
 
     _getTemplate() {
         const cardElement = document
@@ -34,6 +44,8 @@ export default class Card {
 
         this._deleteButton.addEventListener('click', () => {
             this._handleConfirmPopup(this);
+
+            // this._changeVisibleForDeleteButton();
         });
     }
 
