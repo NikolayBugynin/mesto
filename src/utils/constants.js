@@ -9,7 +9,7 @@ export const apiConfig = {
 
 // popup profile buttons
 export const editButton = document.querySelector('.profile__edit-button');
-export const avatarButton = document.querySelector('.profile__edit-avatar_button');
+export const avatarButton = document.querySelector('.profile__edit-avatar-button');
 
 // popup profile
 export const nameInput = document.querySelector('.popup__input_type_name');
@@ -23,6 +23,8 @@ export const addButton = document.querySelector('.profile__add-button');
 export const placeTemplate = document.querySelector('#element-template').content;
 export const profileForm = document.forms['profile-form'];
 export const addForm = document.forms['add-form'];
+export const avatarForm = document.forms['popup-newavatar'];
+
 export const popups = document.querySelectorAll('.popup');
 
 export const formSelector = '.popup__form';

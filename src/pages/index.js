@@ -14,6 +14,7 @@ import {
     // placeTemplate,
     profileForm,
     addForm,
+    avatarForm,
     // popups,
     // formSelector,
     popupAdd,
@@ -48,14 +49,15 @@ const openPicture = (info) => {
     popupWithImage.open(info);
 };
 
-function createCard({ name, link }) {
+function createCard(dataCard) {
     // создаем экземпляр карточки
     const newCard = new Card(
-        { name: name, link: link },
+        dataCard,
         '#element-template',
         openPicture,
         openDeleteCard,
     );
+    // console.log(dataCard)
     return newCard.render();
 }
 
@@ -98,6 +100,7 @@ const api = new Api(apiConfig);
 // validation
 const profileValidation = new FormValidator(validationConfig, profileForm);
 const placeValidation = new FormValidator(validationConfig, addForm);
+const avatarValidation = new FormValidator(validationConfig, avatarForm)
 
 // userInfo
 const userInfo = new UserInfo(profileSelectors);
@@ -115,6 +118,8 @@ const section = new Section(callbacks.section, placesContainer);
 // validation ------------------------------------------------------------------------
 profileValidation.enableValidation();
 placeValidation.enableValidation();
+avatarValidation.enableValidation();
+
 
 forms.forEach((form) => {
     const validator = new FormValidator(validationConfig, form);
@@ -131,22 +136,32 @@ popupWithImage.setEventListeners();
 popupDeleteCard.setEventListeners();
 addButton.addEventListener('click', () => {
     placeValidation.disableSubmitButton();
+    placeValidation.resetErrorsForm();
     placePopup.open();
 });
 
 editButton.addEventListener('click', () => {
     const item = userInfo.getUserInfo();
     profilePopup.setInputsValue({ username: item.name, specification: item.job, avatar: item.avatar });
+    profileValidation.resetErrorsForm();
+    profileValidation.disableSubmitButton();
     profilePopup.open();
+
 });
 
 avatarButton.addEventListener('click', () => {
     popupEditAvatar.open();
+    avatarValidation.disableSubmitButton();
+    avatarValidation.resetErrorsForm();
 });
 
 // executable code -----------------------------------------------------------------
 Promise.all([api.getInfo(), api.getCards()]).then(([dataUser, dataCard]) => {
+    // dataUser._id
     section.renderItems(dataCard);
     userInfo.setUserInfo(dataUser);
-    dataCard.forEach((element) => (element.myId = dataUser._id));
-});
+    dataCard.map((element) => (element.owner = dataUser._id));
+}).catch(err => console.log(err));
+
+
+

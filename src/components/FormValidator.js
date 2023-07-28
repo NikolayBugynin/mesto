@@ -40,6 +40,13 @@ export default class FormValidator {
         }
     }
 
+    resetErrorsForm() {
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement);
+        });
+    };
+
+
     _showInputError(inputElement) {
         const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
         inputElement.classList.add(this._inputErrorClass);

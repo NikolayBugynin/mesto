@@ -1,27 +1,27 @@
 export default class Card {
-    constructor({ name, link, myid, ownerId }, templateSelector, handleCardClick, handleConfirmPopup) {
-
-        this._handleCardClick = handleCardClick
-        // this._myid = myid
-        // this._ownerId = ownerId
+    constructor({ name, link, owner, _id, likes }, templateSelector, handleCardClick, handleConfirmPopup) {
+        this._owner = owner
         this._name = name
         this._link = link
+        this._id = _id
+        this._likes = likes
         this._templateSelector = templateSelector
+        this._handleCardClick = handleCardClick
         this._handleConfirmPopup = handleConfirmPopup
         this._card = this._getTemplate()
         this._elementImage = this._card.querySelector('.element__image')
         this._likeButton = this._card.querySelector('.element__like-button')
         this._title = this._card.querySelector('.element__title')
         this._deleteButton = this._card.querySelector('.element__delete-button')
+        // console.log(owner, _id)
 
     }
 
 
-    // _changeVisibleForDeleteButton() {
-    //     this._myId === this._ownerId
-    //         ? (this._deleteButton.style.display = "block")
-    //         : (this._deleteButtont.style.display = "none");
-    // }
+    _removeDeleteButton() {
+        if (this._owner !== this._Id)
+            this._deleteButton.classList.add('element__delete-button_type_inactive')
+    }
 
     _getTemplate() {
         const cardElement = document
@@ -45,7 +45,7 @@ export default class Card {
         this._deleteButton.addEventListener('click', () => {
             this._handleConfirmPopup(this);
 
-            // this._changeVisibleForDeleteButton();
+
         });
     }
 
@@ -64,8 +64,9 @@ export default class Card {
         this._title.textContent = this._name
         this._elementImage.src = this._link
         this._elementImage.alt = this._name
-        this._makeListeners()
 
+        this._makeListeners()
+        this._removeDeleteButton()
 
         return this._card
     }

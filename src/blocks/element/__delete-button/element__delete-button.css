@@ -9,7 +9,9 @@
     top: 21px;
     right: 20px;
     cursor: pointer;
+
 }
+
 
 .element__delete-button:hover {
     opacity: 0.6;
