@@ -62,14 +62,16 @@ function createCard(dataCard) {
 }
 
 // callbacks for classes -------------------------------------------------------------
-const changeBio = (data) => {
-    const item = { name: data.username, about: data.specification };
-    userInfo.changeUserInfo(item);
+const changeBio = ({ username, specification }) => {
+    const item = { name: username, about: specification };
+    api.editProfle(item)
+        .then((item) => userInfo.changeUserInfo(item))
 };
 
-const addCard = (data) => {
-    const item = { name: data.placename, link: data.placelink };
-    section.addItem(createCard(item));
+const addCard = ({ placename, placelink }) => {
+    const item = { name: placename, link: placelink };
+    api.addCard(item)
+        .then((res) => section.addItemPrepend(createCard(res)))
 };
 
 const deleteCard = (element) => {
@@ -82,7 +84,7 @@ const editAvatar = (data) => {
 };
 
 const renderCard = (item) => {
-    section.addItem(createCard(item));
+    section.addItemAppend(createCard(item));
 };
 
 const callbacks = {
@@ -162,6 +164,3 @@ Promise.all([api.getInfo(), api.getCards()]).then(([dataUser, dataCard]) => {
     userInfo.setUserInfo(dataUser);
     dataCard.map((element) => (element.owner = dataUser._id));
 }).catch(err => console.log(err));
-
-
-

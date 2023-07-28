@@ -13,10 +13,13 @@ export default class Card {
         this._likeButton = this._card.querySelector('.element__like-button')
         this._title = this._card.querySelector('.element__title')
         this._deleteButton = this._card.querySelector('.element__delete-button')
-        // console.log(owner, _id)
-
+        this._scoreLikes = this._card.querySelector('.element__like-score')
     }
 
+    removeCard() {
+        this._card.remove();
+        this._card = null;
+    }
 
     _removeDeleteButton() {
         if (this._owner !== this._Id)
@@ -44,19 +47,15 @@ export default class Card {
 
         this._deleteButton.addEventListener('click', () => {
             this._handleConfirmPopup(this);
-
-
         });
     }
 
-    removeCard() {
-        this._card.remove();
-        this._card = null;
+    _like() {
+        this._likeButton.classList.toggle('element__like-button_type_active');
     }
 
-    _like() {
-
-        this._likeButton.classList.toggle('element__like-button_type_active');
+    _numberOfLikes() {
+        return this._likes.length
     }
 
     render() {
@@ -65,9 +64,10 @@ export default class Card {
         this._elementImage.src = this._link
         this._elementImage.alt = this._name
 
+
+        this._scoreLikes.textContent = this._numberOfLikes()
         this._makeListeners()
         this._removeDeleteButton()
-
         return this._card
     }
 }
