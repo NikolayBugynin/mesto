@@ -8,12 +8,14 @@ export default class Api {
     this._getCards = `${this._url}/cards`
     this._editProfile = `${this._url}/users/me`
     this._addCard = `${this._url}/cards`
+    this._deleteCard = `${this._url}/cards` //'/cardId'
 
-    // requests
-    this._get = { headers: headers, method: 'GET' };
+    // for requests
+    this._headers = headers
+    this._get = { headers: this._headers, method: 'GET' };
     this._patch = function (info) {
       return {
-        headers: headers, method: 'PATCH', body: JSON.stringify({
+        headers: this._headers, method: 'PATCH', body: JSON.stringify({
           name: info.name,
           about: info.about
         })
@@ -21,14 +23,22 @@ export default class Api {
     };
     this._post = function (img) {
       return {
-        headers: headers, method: 'POST', body: JSON.stringify({
+        headers: this._headers, method: 'POST', body: JSON.stringify({
           name: img.name,
           link: img.link
         })
       }
     }
+
+    this._deleteCard = function () {
+      return {
+        headers: this._headers, method: 'DELETE'
+      }
+    }
   }
 
+
+  // requests
   getInfo() {
     return request(this._getInfo, this._get);
   }
@@ -43,6 +53,10 @@ export default class Api {
 
   addCard(img) {
     return request(this._addCard, this._post(img))
+  }
+
+  deleteCard(cardId) {
+    return request(`${this._deleteCard}/${cardId}`, this._deleteCard())
   }
 }
 

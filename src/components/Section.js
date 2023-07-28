@@ -13,7 +13,6 @@ export default class Section {
   }
 
 
-
   renderItems(dataCard) {
     dataCard.map((element) => {
       this._renderer(element);

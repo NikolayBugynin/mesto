@@ -1,6 +1,6 @@
 export default class Card {
-    constructor({ name, link, owner, _id, likes }, templateSelector, handleCardClick, handleConfirmPopup) {
-        this._owner = owner
+    constructor({ name, link, owner, _id, likes }, templateSelector, handleCardClick, handleConfirmPopup, myID) {
+        this._ownerId = owner._id
         this._name = name
         this._link = link
         this._id = _id
@@ -12,8 +12,9 @@ export default class Card {
         this._elementImage = this._card.querySelector('.element__image')
         this._likeButton = this._card.querySelector('.element__like-button')
         this._title = this._card.querySelector('.element__title')
-        this._deleteButton = this._card.querySelector('.element__delete-button')
+        this._deleteButton = this._card.querySelector('.element__delete-button_type_inactive')
         this._scoreLikes = this._card.querySelector('.element__like-score')
+        this._myID = myID
     }
 
     removeCard() {
@@ -21,9 +22,10 @@ export default class Card {
         this._card = null;
     }
 
-    _removeDeleteButton() {
-        if (this._owner !== this._Id)
-            this._deleteButton.classList.add('element__delete-button_type_inactive')
+    _showDeleteButton() {
+        if (this._ownerId === this._myID) {
+            this._deleteButton.classList.remove('.element__delete-button_type_inactive')
+        }
     }
 
     _getTemplate() {
@@ -67,7 +69,7 @@ export default class Card {
 
         this._scoreLikes.textContent = this._numberOfLikes()
         this._makeListeners()
-        this._removeDeleteButton()
+        this._showDeleteButton()
         return this._card
     }
 }

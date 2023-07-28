@@ -1,3 +1,5 @@
+let myID;
+
 // imports ---------------------------------------------------------------------------
 // styles
 import './index.css';
@@ -50,14 +52,13 @@ const openPicture = (info) => {
 };
 
 function createCard(dataCard) {
-    // создаем экземпляр карточки
     const newCard = new Card(
         dataCard,
         '#element-template',
         openPicture,
         openDeleteCard,
+        myID
     );
-    // console.log(dataCard)
     return newCard.render();
 }
 
@@ -159,8 +160,8 @@ avatarButton.addEventListener('click', () => {
 
 // executable code -----------------------------------------------------------------
 Promise.all([api.getInfo(), api.getCards()]).then(([dataUser, dataCard]) => {
-    // dataUser._id
+    myID = dataUser._id;
     section.renderItems(dataCard);
     userInfo.setUserInfo(dataUser);
-    dataCard.map((element) => (element.owner = dataUser._id));
+    // dataCard.map((element) => (element.owner = dataUser._id));
 }).catch(err => console.log(err));
