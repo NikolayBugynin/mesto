@@ -5,32 +5,23 @@ let myID;
 import './index.css';
 // constants
 import {
-    apiConfig,
-    editButton,
-    avatarButton,
-    // titleProfile,
-    // nameInput,
-    // jobInput,
-    // specificationProfile,
-    addButton,
-    // placeTemplate,
-    profileForm,
-    addForm,
-    avatarForm,
-    // popups,
-    // formSelector,
-    popupAdd,
-    popupPic,
-    placesContainer,
-    popupProfile,
-    // templateSelector,
-    popupAvatarSelector,
-    popupDeleteSelector,
-    profileSelectors,
-    validators,
-    forms,
-    validationConfig,
-    // initialCards,
+  apiConfig,
+  editButton,
+  avatarButton,
+  addButton,
+  profileForm,
+  addForm,
+  avatarForm,
+  popupAdd,
+  popupPic,
+  placesContainer,
+  popupProfile,
+  popupAvatarSelector,
+  popupDeleteSelector,
+  profileSelectors,
+  validators,
+  forms,
+  validationConfig,
 } from '../utils/constants.js';
 // components
 import Card from '../components/Card.js';
@@ -42,59 +33,69 @@ import PopupDeleteCard from '../components/popupDeleteCard.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
-// utils functions -------------------------------------------------------------------
-const openDeleteCard = (info) => {
-    popupDeleteCard.open(info);
-};
-
-const openPicture = (info) => {
-    popupWithImage.open(info);
-};
-
-function createCard(dataCard) {
-    const newCard = new Card(
-        dataCard,
-        '#element-template',
-        openPicture,
-        openDeleteCard,
-        myID
-    );
-    return newCard.render();
-}
-
 // callbacks for classes -------------------------------------------------------------
 const changeBio = ({ username, specification }) => {
-    const item = { name: username, about: specification };
-    api.editProfle(item)
-        .then((item) => userInfo.changeUserInfo(item))
+  const item = { name: username, about: specification };
+  api.editProfle(item).then((item) => userInfo.changeUserInfo(item));
 };
 
 const addCard = ({ placename, placelink }) => {
-    const item = { name: placename, link: placelink };
-    api.addCard(item)
-        .then((res) => section.addItemPrepend(createCard(res)))
+  const item = { name: placename, link: placelink };
+  api.addCard(item).then((res) => section.addItemPrepend(createCard(res)));
 };
 
 const deleteCard = (element) => {
-    element.removeCard();
-    popupDeleteCard.close();
+  api.deleteCard(element._id).then(element.removeCard()).then(popupDeleteCard.close());
 };
 
 const editAvatar = (data) => {
-    document.querySelector('.profile__avatar').src = data.avatar;
+  // document.querySelector('.profile__avatar').src = data.avatar;
+  api.newAvatar(data).then((data) => userInfo.changeUserInfo(data))
 };
 
 const renderCard = (item) => {
-    section.addItemAppend(createCard(item));
+  section.addItemAppend(createCard(item));
 };
 
 const callbacks = {
-    profilePopup: changeBio,
-    placePopup: addCard,
-    popupDeleteCard: deleteCard,
-    popupEditAvatar: editAvatar,
-    section: renderCard,
+  profilePopup: changeBio,
+  placePopup: addCard,
+  popupDeleteCard: deleteCard,
+  popupEditAvatar: editAvatar,
+  section: renderCard,
 };
+
+// utils functions -------------------------------------------------------------------
+// for card
+const openDeleteCard = (info) => {
+  popupDeleteCard.open(info);
+};
+
+const openPicture = (info) => {
+  popupWithImage.open(info);
+};
+
+const setLike = async (cardId) => {
+  api.setLike(cardId);
+};
+
+const removeLike = async (cardId) => {
+  api.removeLike(cardId);
+};
+
+// create card
+function createCard(dataCard) {
+  const newCard = new Card(
+    dataCard,
+    '#element-template',
+    openPicture,
+    openDeleteCard,
+    myID,
+    setLike,
+    removeLike,
+  );
+  return newCard.render();
+}
 
 // create class instances ------------------------------------------------------------
 // api
@@ -103,7 +104,7 @@ const api = new Api(apiConfig);
 // validation
 const profileValidation = new FormValidator(validationConfig, profileForm);
 const placeValidation = new FormValidator(validationConfig, addForm);
-const avatarValidation = new FormValidator(validationConfig, avatarForm)
+const avatarValidation = new FormValidator(validationConfig, avatarForm);
 
 // userInfo
 const userInfo = new UserInfo(profileSelectors);
@@ -123,11 +124,10 @@ profileValidation.enableValidation();
 placeValidation.enableValidation();
 avatarValidation.enableValidation();
 
-
 forms.forEach((form) => {
-    const validator = new FormValidator(validationConfig, form);
-    validator.enableValidation();
-    validators[form.getAttribute('name')] = validator;
+  const validator = new FormValidator(validationConfig, form);
+  validator.enableValidation();
+  validators[form.getAttribute('name')] = validator;
 });
 
 // event listeners ------------------------------------------------------------------
@@ -135,33 +135,38 @@ profilePopup.setEventListeners();
 popupEditAvatar.setEventListeners();
 placePopup.setEventListeners();
 popupWithImage.setEventListeners();
-
 popupDeleteCard.setEventListeners();
+
 addButton.addEventListener('click', () => {
-    placeValidation.disableSubmitButton();
-    placeValidation.resetErrorsForm();
-    placePopup.open();
+  placeValidation.disableSubmitButton();
+  placeValidation.resetErrorsForm();
+  placePopup.open();
 });
 
 editButton.addEventListener('click', () => {
-    const item = userInfo.getUserInfo();
-    profilePopup.setInputsValue({ username: item.name, specification: item.job, avatar: item.avatar });
-    profileValidation.resetErrorsForm();
-    profileValidation.disableSubmitButton();
-    profilePopup.open();
-
+  const item = userInfo.getUserInfo();
+  profilePopup.setInputsValue({
+    username: item.name,
+    specification: item.job,
+    avatar: item.avatar,
+  });
+  profileValidation.resetErrorsForm();
+  profileValidation.disableSubmitButton();
+  profilePopup.open();
 });
 
 avatarButton.addEventListener('click', () => {
-    popupEditAvatar.open();
-    avatarValidation.disableSubmitButton();
-    avatarValidation.resetErrorsForm();
+  popupEditAvatar.open();
+  avatarValidation.disableSubmitButton();
+  avatarValidation.resetErrorsForm();
 });
 
 // executable code -----------------------------------------------------------------
-Promise.all([api.getInfo(), api.getCards()]).then(([dataUser, dataCard]) => {
+Promise.all([api.getInfo(), api.getCards()])
+  .then(([dataUser, dataCard]) => {
     myID = dataUser._id;
     section.renderItems(dataCard);
     userInfo.setUserInfo(dataUser);
     // dataCard.map((element) => (element.owner = dataUser._id));
-}).catch(err => console.log(err));
+  })
+  .catch((err) => console.log(err));

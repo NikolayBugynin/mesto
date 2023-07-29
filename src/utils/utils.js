@@ -3,7 +3,9 @@ export const request = async (url, { headers, body, method }) => {
     headers: headers,
     body: body,
     method: method,
-  }).then(checkResponse);
+  })
+    .then(checkResponse)
+    .catch((err) => console.log(err));
 };
 
 const checkResponse = (result) => {
