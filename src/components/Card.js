@@ -12,7 +12,7 @@ export default class Card {
         this._elementImage = this._card.querySelector('.element__image')
         this._likeButton = this._card.querySelector('.element__like-button')
         this._title = this._card.querySelector('.element__title')
-        this._deleteButton = this._card.querySelector('.element__delete-button_type_inactive')
+        this._deleteButton = this._card.querySelector('.element__delete-button')
         this._scoreLikes = this._card.querySelector('.element__like-score')
         this._myID = myID
     }
@@ -22,9 +22,9 @@ export default class Card {
         this._card = null;
     }
 
-    _showDeleteButton() {
-        if (this._ownerId === this._myID) {
-            this._deleteButton.classList.remove('.element__delete-button_type_inactive')
+    _hideDeleteButton() {
+        if (this._ownerId !== this._myID) {
+            this._deleteButton.classList.add('element__delete-button_type_inactive')
         }
     }
 
@@ -69,7 +69,7 @@ export default class Card {
 
         this._scoreLikes.textContent = this._numberOfLikes()
         this._makeListeners()
-        this._showDeleteButton()
+        this._hideDeleteButton()
         return this._card
     }
 }
