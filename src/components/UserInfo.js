@@ -19,10 +19,12 @@ export default class UserInfo {
     this._profileAvatar.src = avatar;
   }
 
-  changeUserInfo({ name, about, avatar }) {
+  changeUserInfo({ name, about }) {
     this._name.textContent = name;
     this._job.textContent = about;
+  }
+
+  changeAvatar({ avatar }) {
     this._profileAvatar.src = avatar;
   }
 }
-

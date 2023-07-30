@@ -8,9 +8,10 @@ export const request = async (url, { headers, body, method }) => {
     .catch((err) => console.log(err));
 };
 
-const checkResponse = (result) => {
-  if (result.ok) {
-    return result.json();
+const checkResponse = (response) => {
+  if (response.ok) {
+    const res = response.json();
+    return res;
   }
-  return Promise.reject(`Ошибка: ${result.status}`);
+  return Promise.reject(`Ошибка: ${response.status}`);
 };

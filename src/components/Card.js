@@ -54,16 +54,24 @@ export default class Card {
   }
 
   _setHeart() {
-    this._setLike(this._id).then(() => {
-      this._changeColorHeart();
-      this._scoreLikes.textContent = this._likes.length + 1;
+    this._setLike(this._id).then((res) => {
+      if (this._likes.length !== res.likes.length) {
+        this._likes = res.likes;
+        this._myHeart = true;
+        this._changeColorHeart();
+        this._scoreLikes.textContent = this._likes.length;
+      }
     });
   }
 
   _removeHeart() {
-    this._removeLike(this._id).then(() => {
-      this._changeColorHeart();
-      this._scoreLikes.textContent = this._likes.length - 1;
+    this._removeLike(this._id).then((res) => {
+      if (this._likes.length !== res.likes.length) {
+        this._changeColorHeart();
+        this._likes = res.likes;
+        this._myHeart = false;
+        this._scoreLikes.textContent = this._likes.length;
+      }
     });
   }
 
@@ -79,24 +87,34 @@ export default class Card {
 
   // edit node
   _editCard() {
-    this._title.textContent = this._name;
     this._elementImage.src = this._link;
+    this._title.textContent = this._name;
     this._elementImage.alt = this._name;
 
+    // likes
     if (this._likes.length) {
       this._scoreLikes.textContent = this._likes.length;
       this._checkMyHeart();
       if (this._myHeart) {
         this._changeColorHeart();
       }
+    } else {
+      this._scoreLikes.textContent = 0;
+    }
+  }
+
+  // callbacks for listeners
+  _checkLike() {
+    if (this._myHeart) {
+      this._removeHeart();
+    } else {
+      this._setHeart();
     }
   }
 
   // add listeners
   _makeListeners() {
-    this._likeButton.addEventListener('click', () => {
-      this._setHeart();
-    });
+    this._likeButton.addEventListener('click', () => this._checkLike());
 
     this._elementImage.addEventListener('click', () => {
       this._handleCardClick({ name: this._name, link: this._link });

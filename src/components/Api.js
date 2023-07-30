@@ -15,14 +15,13 @@ export default class Api {
     // for requests
     this._headers = headers;
     this._get = { headers: this._headers, method: 'GET' };
-    this._patch = (info) => {
+    this._patch = ({ name, about, avatar }) => {
+      let body;
+      name && about ? (body = { name: name, about: about }) : (body = { avatar: avatar });
       return {
         headers: this._headers,
         method: 'PATCH',
-        body: JSON.stringify({
-          name: info.name,
-          about: info.about,
-        }),
+        body: JSON.stringify(body),
       };
     };
     this._post = (img) => {
@@ -80,7 +79,7 @@ export default class Api {
     return request(`${this._like}/${cardId}`, this._delete());
   }
 
-  newAvatar(info) {
-    return request(this._editAvatar, this._patch(info))
+  newAvatar(link) {
+    return request(this._editAvatar, this._patch(link));
   }
 }

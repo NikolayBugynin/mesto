@@ -36,6 +36,8 @@ export const templateSelector = '.template';
 export const popupAvatarSelector = '.popup-avatar';
 export const popupDeleteSelector = '.popup-delete-card';
 
+export const inactiveButtonClass = 'popup__button_disable';
+
 export const profileSelectors = {
   name: '.profile__title',
   job: '.profile__specification',

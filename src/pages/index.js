@@ -22,6 +22,7 @@ import {
   validators,
   forms,
   validationConfig,
+  inactiveButtonClass,
 } from '../utils/constants.js';
 // components
 import Card from '../components/Card.js';
@@ -36,25 +37,24 @@ import Api from '../components/Api.js';
 // callbacks for classes -------------------------------------------------------------
 const changeBio = ({ username, specification }) => {
   const item = { name: username, about: specification };
-  api.editProfle(item).then((item) => userInfo.changeUserInfo(item));
+  return api.editProfle(item).then(userInfo.changeUserInfo(item));
 };
 
 const addCard = ({ placename, placelink }) => {
   const item = { name: placename, link: placelink };
-  api.addCard(item).then((res) => section.addItemPrepend(createCard(res)));
+  return api.addCard(item).then((res) => section.addItemPrepend(createCard(res)));
 };
 
 const deleteCard = (element) => {
-  api.deleteCard(element._id).then(element.removeCard()).then(popupDeleteCard.close());
+  return api.deleteCard(element._id).then(element.removeCard()).then(popupDeleteCard.close());
 };
 
 const editAvatar = (data) => {
-  // document.querySelector('.profile__avatar').src = data.avatar;
-  api.newAvatar(data).then((data) => userInfo.changeUserInfo(data))
+  return api.newAvatar(data).then((data) => userInfo.changeAvatar(data));
 };
 
 const renderCard = (item) => {
-  section.addItemAppend(createCard(item));
+  return section.addItemAppend(createCard(item));
 };
 
 const callbacks = {
@@ -76,11 +76,11 @@ const openPicture = (info) => {
 };
 
 const setLike = async (cardId) => {
-  api.setLike(cardId);
+  return api.setLike(cardId);
 };
 
 const removeLike = async (cardId) => {
-  api.removeLike(cardId);
+  return api.removeLike(cardId);
 };
 
 // create card
@@ -167,6 +167,5 @@ Promise.all([api.getInfo(), api.getCards()])
     myID = dataUser._id;
     section.renderItems(dataCard);
     userInfo.setUserInfo(dataUser);
-    // dataCard.map((element) => (element.owner = dataUser._id));
   })
   .catch((err) => console.log(err));
