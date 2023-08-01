@@ -37,20 +37,28 @@ import Api from '../components/Api.js';
 // callbacks for classes -------------------------------------------------------------
 const changeBio = ({ username, specification }) => {
   const item = { name: username, about: specification };
-  return api.editProfle(item).then(userInfo.changeUserInfo(item));
+  return api.editProfile(item).
+    then(userInfo.changeUserInfo(item))
+    .catch(err => console.error(`Ошибка при редактировании данных профиля: ${err}`))
 };
 
 const addCard = ({ placename, placelink }) => {
   const item = { name: placename, link: placelink };
-  return api.addCard(item).then((res) => section.addItemPrepend(createCard(res)));
+  return api.addCard(item).
+    then((res) => section.addItemPrepend(createCard(res)))
+    .catch(err => console.error(`Ошибка при при создании новой карточки: ${err}`))
 };
 
+
 const deleteCard = (element) => {
-  return api.deleteCard(element._id).then(element.removeCard()).then(popupDeleteCard.close());
+  return api.deleteCard(element._id).then(element.removeCard()).then(popupDeleteCard.close())
+    .catch(err => console.error(`Ошибка при при удалении карточки: ${err}`))
 };
 
 const editAvatar = (data) => {
-  return api.newAvatar(data).then((data) => userInfo.changeAvatar(data));
+  return api.newAvatar(data).
+    then((data) => userInfo.changeAvatar(data))
+    .catch(err => console.error(`Ошибка при редактировании аватара: ${err}`))
 };
 
 const renderCard = (item) => {
@@ -76,11 +84,13 @@ const openPicture = (info) => {
 };
 
 const setLike = async (cardId) => {
-  return api.setLike(cardId);
+  return api.setLike(cardId)
+    .catch(err => console.error(`Ошибка при при постановки лайка: ${err}`))
 };
 
 const removeLike = async (cardId) => {
-  return api.removeLike(cardId);
+  return api.removeLike(cardId)
+    .catch(err => console.error(`Ошибка при при снятии лайка: ${err}`))
 };
 
 // create card
@@ -106,7 +116,7 @@ const profileValidation = new FormValidator(validationConfig, profileForm);
 const placeValidation = new FormValidator(validationConfig, addForm);
 const avatarValidation = new FormValidator(validationConfig, avatarForm);
 
-// userInfo
+// userInfo 
 const userInfo = new UserInfo(profileSelectors);
 
 // popups
@@ -120,9 +130,9 @@ const popupEditAvatar = new PopupWithForm(popupAvatarSelector, callbacks.popupEd
 const section = new Section(callbacks.section, placesContainer);
 
 // validation ------------------------------------------------------------------------
-profileValidation.enableValidation();
-placeValidation.enableValidation();
-avatarValidation.enableValidation();
+// profileValidation.enableValidation();
+// placeValidation.enableValidation();
+// avatarValidation.enableValidation();
 
 forms.forEach((form) => {
   const validator = new FormValidator(validationConfig, form);
@@ -168,4 +178,9 @@ Promise.all([api.getInfo(), api.getCards()])
     section.renderItems(dataCard);
     userInfo.setUserInfo(dataUser);
   })
-  .catch((err) => console.log(err));
+  .catch(err => console.error(`Ошибка при создании начальных данных страницы: ${err}`))
+
+
+
+
+
