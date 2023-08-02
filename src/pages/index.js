@@ -49,7 +49,6 @@ const addCard = ({ placename, placelink }) => {
     .catch(err => console.error(`Ошибка при при создании новой карточки: ${err}`))
 };
 
-
 const deleteCard = (element) => {
   return api.deleteCard(element._id).then(element.removeCard()).then(popupDeleteCard.close())
     .catch(err => console.error(`Ошибка при при удалении карточки: ${err}`))
@@ -116,6 +115,7 @@ const profileValidation = new FormValidator(validationConfig, profileForm);
 const placeValidation = new FormValidator(validationConfig, addForm);
 const avatarValidation = new FormValidator(validationConfig, avatarForm);
 
+
 // userInfo 
 const userInfo = new UserInfo(profileSelectors);
 
@@ -129,16 +129,10 @@ const popupEditAvatar = new PopupWithForm(popupAvatarSelector, callbacks.popupEd
 // render
 const section = new Section(callbacks.section, placesContainer);
 
-// validation ------------------------------------------------------------------------
-// profileValidation.enableValidation();
-// placeValidation.enableValidation();
-// avatarValidation.enableValidation();
-
-forms.forEach((form) => {
-  const validator = new FormValidator(validationConfig, form);
-  validator.enableValidation();
-  validators[form.getAttribute('name')] = validator;
-});
+// validation------------------------------------------------------------------------
+profileValidation.enableValidation();
+placeValidation.enableValidation();
+avatarValidation.enableValidation();
 
 // event listeners ------------------------------------------------------------------
 profilePopup.setEventListeners();
@@ -148,7 +142,6 @@ popupWithImage.setEventListeners();
 popupDeleteCard.setEventListeners();
 
 addButton.addEventListener('click', () => {
-  placeValidation.disableSubmitButton();
   placeValidation.resetErrorsForm();
   placePopup.open();
 });
@@ -160,14 +153,13 @@ editButton.addEventListener('click', () => {
     specification: item.job,
     avatar: item.avatar,
   });
+  profileValidation.disableSubmitButton()
   profileValidation.resetErrorsForm();
-  profileValidation.disableSubmitButton();
   profilePopup.open();
 });
 
 avatarButton.addEventListener('click', () => {
   popupEditAvatar.open();
-  avatarValidation.disableSubmitButton();
   avatarValidation.resetErrorsForm();
 });
 

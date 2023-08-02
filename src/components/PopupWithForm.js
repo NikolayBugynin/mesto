@@ -31,6 +31,7 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach((input) => {
       input.value = userData[input.name];
     });
+
   }
 
   _buttonLoading() {
